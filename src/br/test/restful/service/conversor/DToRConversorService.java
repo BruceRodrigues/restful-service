@@ -9,11 +9,14 @@ import javax.ws.rs.core.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import br.test.restful.service.conversor.api.IService;
+
 @Path("/dtorconversor")
-public class DToRConversorService {
+public class DToRConversorService implements IService<Response> {
 
 	private final Double REAL = 3.09434663;
 
+	@Override
 	@GET
 	@Produces("application/json")
 	public Response convertDollarToReal() throws JSONException {
@@ -27,6 +30,7 @@ public class DToRConversorService {
 		return this.createResponse(result);
 	}
 
+	@Override
 	@Path("{d}")
 	@GET
 	@Produces("application/json")
@@ -42,7 +46,8 @@ public class DToRConversorService {
 		return this.createResponse(result);
 	}
 
-	private Response createResponse(String result) {
+	@Override
+	public Response createResponse(String result) {
 		return Response.status(200).entity(result).build();
 	}
 
